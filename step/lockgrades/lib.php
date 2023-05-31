@@ -53,7 +53,7 @@ class lockgrades extends libbase {
             if (settings_manager::get_settings($instanceid, settings_type::STEP)['setting_items'] === 1) {
                 $gradeitem->set_locked(1);
             }
-            $usergrades = grade_grade::fetch_users_grades($gradeitem, array_keys($students));
+            $usergrades = sizeof($students) > 0 ? grade_grade::fetch_users_grades($gradeitem, array_keys($students)) : [];
             foreach ($usergrades as $grade) {
                 if (isset($grade->id)) {
                     $grade->set_locked(1);
