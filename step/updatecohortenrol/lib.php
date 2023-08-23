@@ -25,7 +25,6 @@ namespace tool_lifecycle\step;
 
 use tool_lifecycle\local\manager\settings_manager;
 use tool_lifecycle\local\response\step_response;
-use enrol_cohort_plugin;
 use tool_lifecycle\settings_type;
 
 defined('MOODLE_INTERNAL') || die();
@@ -48,7 +47,8 @@ class updatecohortenrol extends libbase {
             if ($enrol->enrol === 'cohort' && $enrol->roleid == $oldrole) {
                 $update = new \stdClass();
                 $update->roleid = $newrole;
-                $instance = new enrol_cohort_plugin();
+                $update->customint2 = $enrol->customint2;
+                $instance = new \enrol_cohort_plugin();
                 $instance->update_instance($enrol, $update);
             }
         }
