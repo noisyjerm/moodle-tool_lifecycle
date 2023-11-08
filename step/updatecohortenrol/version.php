@@ -24,5 +24,5 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2023051800;
+$plugin->version   = 2023051801;
 $plugin->component = 'lifecyclestep_updatecohortenrol';

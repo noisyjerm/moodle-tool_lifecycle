@@ -21,6 +21,7 @@
  * @copyright  2023 Te Wānanga o Aotearoa
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 namespace tool_lifecycle\step;
 
 use tool_lifecycle\local\manager\settings_manager;
@@ -29,6 +30,8 @@ use tool_lifecycle\settings_type;
 
 defined('MOODLE_INTERNAL') || die();
 
+global $CFG;
+require_once($CFG->dirroot . '/lib/enrollib.php');
 require_once(__DIR__ . '/../lib.php');
 
 class updatecohortenrol extends libbase {
@@ -48,7 +51,7 @@ class updatecohortenrol extends libbase {
                 $update = new \stdClass();
                 $update->roleid = $newrole;
                 $update->customint2 = $enrol->customint2;
-                $instance = new \enrol_cohort_plugin();
+                $instance = enrol_get_plugin('cohort');
                 $instance->update_instance($enrol, $update);
             }
         }
@@ -61,10 +64,10 @@ class updatecohortenrol extends libbase {
      * @return instance_setting[] containing settings keys and PARAM_TYPES
      */
     public function instance_settings() {
-        return array(
+        return [
             new instance_setting('setting_oldrole', PARAM_INT, true),
             new instance_setting('setting_newrole', PARAM_INT, true),
-        );
+        ];
     }
 
     /**
